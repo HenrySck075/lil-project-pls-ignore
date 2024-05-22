@@ -2,6 +2,7 @@
 #include "AudioEngine.h"
 #include "iostream"
 #include "AssetPath.h"
+#include "ui/UIMediaPlayer.h"
 USING_NS_AX;
 
 Size resizePreserve2(Size dim, float width, float height) {
@@ -28,6 +29,17 @@ bool EndScreen::init() {
     endCredits->setPosition(Vec2(0,0));
 	this->addChild(endCredits);
 	float h = ds.height;
+    auto m = ui::MediaPlayer::create();
+    m->addEventListener([](Object* j, ui::MediaPlayer::EventType type) {
+        if (type == ui::MediaPlayer::EventType::COMPLETED)
+        {
+            Director::getInstance()->end(); 
+        }
+    });
+    this->addChild(m,7);
+    m->setContentSize(resizePreserve2(Size(480,856), -1, ds.height));
+    m->setFileName(kys::assetPath("honorable mention.mp4"));
+    m->setPosition(ds/2);
 	auto seq = Sequence::create(
 		DelayTime::create(0.25), // transition
 	    CallFunc::create([](){AudioEngine::play2d(kys::assetPath("wade ld short.mp3"));}),
@@ -38,13 +50,14 @@ bool EndScreen::init() {
 		DelayTime::create(9.29),
 		FadeOut::create(0),
 
-		DelayTime::create(5),
-		CallFunc::create([]() {Director::getInstance()->end(); }),
+		DelayTime::create(3),
+		CallFunc::create([m]() {
+            //m->setFullScreenEnabled(true);
+            m->play();
+        }),
 		nullptr // what
 	);
 	std::cout<<ds.width<<std::endl;
-	auto j = endCredits->getContentSize();
-    std::cout << j.x << " " << j.y;
 	endCredits->runAction(seq);
 	//this->scheduleUpdate();
 	return true;
