@@ -24,8 +24,8 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "EndScreen.h"
-//#include "GuessWho.h"
+//#include "EndScreen.h"
+#include "GuessWho.h"
 
 #define USE_AUDIO_ENGINE 1
 
@@ -79,7 +79,8 @@ bool AppDelegate::applicationDidFinishLaunching()
                                     ResolutionPolicy::SHOW_ALL);
 
     // create a scene. it's an autorelease object
-    auto scene = utils::createInstance<EndScreen>();
+    //auto scene = utils::createInstance<EndScreen>();
+    auto scene = utils::createInstance<GuessWho>();
 
     // run
     director->runWithScene(scene);

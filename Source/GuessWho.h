@@ -32,7 +32,7 @@ class GuessWho: public axmol::Scene
 public:
     virtual bool init();
     int tilesOpened = 0;
-    int unlocked = 9;
+    int unlocked = 0;
     int loopId = 0;
 
     // a selector callback

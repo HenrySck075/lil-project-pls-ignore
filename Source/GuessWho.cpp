@@ -82,9 +82,9 @@ bool GuessWho::init()
 		ld += s.width+20;
 		yipee.pushBack(j);
 	}
-	auto j = MenuItemSprite::create(Sprite::create("CloseNormal.png"), nullptr, AX_CALLBACK_1(GuessWho::jumpToCredits, this));
-	j->setPosition(0, 200);
-	yipee.pushBack(j);
+	//auto j = MenuItemSprite::create(Sprite::create("CloseNormal.png"), nullptr, AX_CALLBACK_1(GuessWho::jumpToCredits, this));
+	//j->setPosition(0, 200);
+	//yipee.pushBack(j);
 	// create menu, it's an autorelease object
 	auto menu = Menu::createWithArray(yipee);
 	menu->setName("j");
@@ -127,20 +127,25 @@ void GuessWho::resultImageCallback(Object* sender) {
 	}
 	else {
 		auto m = static_cast<Menu*>(node->getParent());
-		auto uwu = m->getChildByName("this fraud");
 		this->runAction(Sequence::create(
 			CallFunc::create([&]() {
 				this->getChildByName<Menu*>("j")->runAction(EaseOut::create(MoveBy::create(0.5, Vec2(0, 160)), 2));
 				}
 			),
 			DelayTime::create(0.5),
-			CallFunc::create([m,uwu]() {
-				uwu->runAction(
+			CallFunc::create([m,node,this]() {
+				node->runAction(
 					Sequence::createWithTwoActions(
 						Spawn::createWithTwoActions(
 							TintTo::create(0, Color3B(255.f,255.f,255.f)), FadeOut::create(0.5)
 						),
-						CallFunc::create([m]() { m->removeFromParentAndCleanup(true); })
+						CallFunc::create([m,node,this]() {
+                            m->removeFromParentAndCleanup(true);
+                            auto j = this->getChildByName<Menu*>("j")->getChildByName<MenuItemSprite*>(node->getName());
+                            auto s = Sprite::createWithTexture(static_cast<Sprite*>(node->getNormalImage())->getTexture());
+                            s->setContentSize(resizePreserve(s->getContentSize(), -1, 70));
+                            j->setNormalImage(s);
+                        })
 					)
 				);
 			}),
@@ -209,7 +214,7 @@ void GuessWho::displaySilhouette(Object* pSender) {
 	this->addChild(menu2);
 
 	auto b = MenuItemSprite::create(normalSprite, nullptr, AX_CALLBACK_1(GuessWho::resultImageCallback, this));
-	b->setName("this fraud");
+    b->setName(std::string(j->getName()));
 	b->setContentSize(size);
 	normalSprite->setContentSize(size);
 	menu->addChild(b,-7);
