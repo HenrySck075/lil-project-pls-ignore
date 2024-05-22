@@ -6,6 +6,7 @@
 #include "iostream"
 #include "EndScreen.h"
 #include "GifPlayer.h"
+#include "AssetPath.h"
 USING_NS_AX;
 
 
@@ -69,7 +70,7 @@ bool GuessWho::init()
 	float ld = 0;
 	for (int i = 1; i<=10; i++) {
 		// replace with a box
-		auto sprite = Sprite::create("CloseNormal.png");
+		auto sprite = Sprite::create(kys::assetPath("CloseNormal.png"));
 
 		//sprite->setSize(Size(150,150));
 		auto s = resizePreserve(sprite->getContentSize(), -1, 70);
@@ -89,18 +90,18 @@ bool GuessWho::init()
 	menu->setName("j");
 	menu->setAnchorPoint(Vec2(0.5, 0));
 	auto dim = Director::getInstance()->getVisibleSize();
-	
+
 	menu->setPosition(Vec2(dim.width/2-getPossibleMenuSize(menu).width/2, 80));
 	this->addChild(menu, 1);
 
 
 	// Loop audio
-	
-	AudioEngine::preload("abstract loop.mp3");
-	
-	this->loopId = AudioEngine::play2d("abstract static.mp3");
+
+	AudioEngine::preload(kys::assetPath("abstract loop.mp3"));
+
+	this->loopId = AudioEngine::play2d(kys::assetPath("abstract static.mp3"));
 	AudioEngine::setFinishCallback(this->loopId, [&](int j, std::string_view fn) {
-		this->loopId = AudioEngine::play2d("abstract loop.mp3", true);
+		this->loopId = AudioEngine::play2d(kys::assetPath("abstract loop.mp3"), true);
 	});
 	return true;
 }
@@ -148,7 +149,7 @@ void GuessWho::resultImageCallback(Object* sender) {
 		this->tilesOpened = 0;
 		this->unlocked++;
 		if (this->unlocked == 10){
-            auto h    = Sprite::create("h.png");
+            auto h    = Sprite::create(kys::assetPath("h.png"));
             h->setPosition(Director::getInstance()->getVisibleSize()/2);
             //h->setOpacity(0);
             this->addChild(h,79);
@@ -172,15 +173,15 @@ void GuessWho::resultImageCallback(Object* sender) {
 
 void GuessWho::displaySilhouette(Object* pSender) {
 	auto j = static_cast<MenuItemSprite*>(pSender);
-	auto normalSprite = Sprite::create(std::string(j->getName()) + ".jpg");
-	auto silhou = Sprite::create(std::string(j->getName()) + " - Silhouette.jpg");
+	auto normalSprite = Sprite::create(kys::assetPath(std::string(j->getName()) + ".png"));
+	auto silhou = Sprite::create(kys::assetPath(std::string(j->getName()) + " - Silhouette.png"));
 	auto k = silhou->getContentSize();
 	auto size = resizePreserve(k,-1,400);
 	silhou->setScale(size.width / k.width);
 	float segWidth = k.width / 3;
 	float segHeight = k.height / 3;
 
-	
+
 	auto menu = Menu::create();
 	menu->setName("horny");
 	auto menu2 = Menu::create();

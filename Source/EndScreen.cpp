@@ -1,6 +1,7 @@
 #include "EndScreen.h"
 #include "AudioEngine.h"
 #include "iostream"
+#include "AssetPath.h"
 USING_NS_AX;
 
 Size resizePreserve2(Size dim, float width, float height) {
@@ -18,8 +19,8 @@ bool EndScreen::init() {
         return false;
     }
 	auto ds = Director::getInstance()->getVisibleSize();
-	
-	auto endCredits = Sprite::create("endCredits.png");
+
+	auto endCredits = Sprite::create(kys::assetPath("endCredits.png"));
 	//endCredits->setName("h");
     //endCredits->setScale(20);
     endCredits->setAnchorPoint(Vec2(0,1));
@@ -29,12 +30,12 @@ bool EndScreen::init() {
 	float h = ds.height;
 	auto seq = Sequence::create(
 		DelayTime::create(0.25), // transition
-	    CallFunc::create([](){AudioEngine::play2d("wade ld short.mp3");}),
+	    CallFunc::create([](){AudioEngine::play2d(kys::assetPath("wade ld short.mp3"));}),
 		EaseSineOut::create(MoveBy::create(4, Vec2(0, h))),
 		DelayTime::create(3),
 
-		MoveBy::create(126, Vec2(0, endCredits->getContentSize().height - h)),
-		DelayTime::create(4.29),
+		MoveBy::create(121, Vec2(0, endCredits->getContentSize().height - h)),
+		DelayTime::create(9.29),
 		FadeOut::create(0),
 
 		DelayTime::create(5),
