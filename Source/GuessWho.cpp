@@ -1,4 +1,5 @@
 #include "GuessWho.h"
+#include "2d/MenuItem.h"
 #include "AudioEngine.h"
 #include "ui/UIVBox.h"
 #include "ui/UILayoutParameter.h"
@@ -145,6 +146,7 @@ void GuessWho::resultImageCallback(Object* sender) {
                             auto s = Sprite::createWithTexture(static_cast<Sprite*>(node->getNormalImage())->getTexture());
                             s->setContentSize(resizePreserve(s->getContentSize(), -1, 70));
                             j->setNormalImage(s);
+                            //this->unlockedBoxes.pushBack(j->getName());
                         })
 					)
 				);
@@ -226,10 +228,12 @@ void GuessWho::jumpToCredits(Object* pSender)
 }
 void GuessWho::optionCallback(Object* pSender)
 {
-	//Close the menu
-	this->getChildByName<Menu*>("j")->runAction(EaseIn::create(MoveBy::create(0.5, Vec2(0, -160)),2));
-	this->displaySilhouette(pSender);
-
+    auto j = static_cast<MenuItemSprite*>(pSender);
+    if (true){//(this->unlockedBoxes.getIndex(j->getName())==-1) {
+        //Close the menu
+        this->getChildByName<Menu*>("j")->runAction(EaseIn::create(MoveBy::create(0.5, Vec2(0, -160)),2));
+        this->displaySilhouette(pSender);
+    }
 
 	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
 

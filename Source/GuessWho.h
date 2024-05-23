@@ -25,15 +25,19 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
+//#include <string_view>
 #include "axmol.h"
+//#include "base/Vector.h"
 
 class GuessWho: public axmol::Scene
 {
 public:
     virtual bool init();
     int tilesOpened = 0;
-    int unlocked = 0;
+    int unlocked = 9;
     int loopId = 0;
+
+    //ax::Vector<std::string_view> unlockedBoxes;
 
     // a selector callback
     void optionCallback(axmol::Object* pSender);
