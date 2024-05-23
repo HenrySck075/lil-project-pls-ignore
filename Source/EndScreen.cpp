@@ -37,7 +37,7 @@ bool EndScreen::init() {
         }
     });
     this->addChild(m,7);
-    m->setContentSize(resizePreserve2(Size(480,856), -1, ds.height));
+    m->setContentSize(ds);
     m->setFileName(kys::assetPath("honorable mention.mp4"));
     m->setPosition(ds/2);
 	auto seq = Sequence::create(
@@ -46,8 +46,8 @@ bool EndScreen::init() {
 		EaseSineOut::create(MoveBy::create(4, Vec2(0, h))),
 		DelayTime::create(3),
 
-		MoveBy::create(121, Vec2(0, endCredits->getContentSize().height - h)),
-		DelayTime::create(9.29),
+		MoveBy::create(49.316, Vec2(0, endCredits->getContentSize().height - h)),
+		DelayTime::create(6.29),
 		FadeOut::create(0),
 
 		DelayTime::create(3),
