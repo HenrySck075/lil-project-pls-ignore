@@ -1,3 +1,9 @@
 CompileFlags:
     Add:
-        "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/root/axmol/core"
+        - "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/root/axmol/core"
+        - "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/root/axmol/3rdparty/robin-map/include"
+        - "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/usr/include"
+        - "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/usr/include/linux"
+        - "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/usr/include/c++/11/tr1"
+        - "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/usr/include/aarch64-linux-gnu/c++/11"
+        - "-I/data/data/com.termux/files/home/androni/ubuntu22-fs/usr/include/aarch64-linux-gnu"
