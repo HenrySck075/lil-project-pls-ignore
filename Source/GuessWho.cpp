@@ -83,9 +83,9 @@ bool GuessWho::init()
 		ld += s.width+20;
 		yipee.pushBack(j);
 	}
-	//auto j = MenuItemSprite::create(Sprite::create("CloseNormal.png"), nullptr, AX_CALLBACK_1(GuessWho::jumpToCredits, this));
-	//j->setPosition(0, 200);
-	//yipee.pushBack(j);
+	auto j = MenuItemSprite::create(Sprite::create(kys::assetPath("CloseNormal.png")), nullptr, AX_CALLBACK_1(GuessWho::jumpToCredits, this));
+	j->setPosition(0, 200);
+	yipee.pushBack(j);
 	// create menu, it's an autorelease object
 	auto menu = Menu::createWithArray(yipee);
 	menu->setName("j");
@@ -170,7 +170,7 @@ void GuessWho::resultImageCallback(Object* sender) {
                 }),
                 CallFunc::create([&]() {
                     AudioEngine::stopAll();
-                    Director::getInstance()->pushScene(TransitionFade::create(0.25,utils::createInstance<EndScreen>()));
+                    //Director::getInstance()->pushScene(TransitionFade::create(0.25,utils::createInstance<EndScreen>()));
                 }),
                 nullptr
             ));
@@ -183,7 +183,7 @@ void GuessWho::displaySilhouette(Object* pSender) {
 	auto normalSprite = Sprite::create(kys::assetPath(std::string(j->getName()) + ".png"));
 	auto silhou = Sprite::create(kys::assetPath(std::string(j->getName()) + " - Silhouette.png"));
 	auto k = silhou->getContentSize();
-	auto size = resizePreserve(k,-1,400);
+	auto size = resizePreserve(k,-1,460);
 	silhou->setScale(size.width / k.width);
 	float segWidth = k.width / 3;
 	float segHeight = k.height / 3;

@@ -34,11 +34,8 @@ class GuessWho: public axmol::Scene
 public:
     virtual bool init();
     int tilesOpened = 0;
-    #if !NDEBUG
-        int unlocked = 0;
-    #else
-        int unlocked = 9;
-    #endif
+    int unlocked = 0;
+    //int unlocked = 9;
     int loopId = 0;
 
     //ax::Vector<std::string_view> unlockedBoxes;
